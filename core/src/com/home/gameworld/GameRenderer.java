@@ -75,6 +75,9 @@ public class GameRenderer {
         shapeRenderer.rect(myWorld.getRect().x, myWorld.getRect().y,
                 myWorld.getRect().width, myWorld.getRect().height);
 
+        shapeRenderer.circle(myWorld.getCircle().x, myWorld.getCircle().y,
+        		myWorld.getCircle().radius);
+        
         shapeRenderer.end();
 	}
 }

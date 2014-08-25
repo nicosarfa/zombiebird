@@ -3,7 +3,7 @@ package com.home.zombiebird.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.home.zombiebird.ZombieBird;
+import com.home.zombiebird.ZBGame;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -14,6 +14,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new ZombieBird();
+                return new ZBGame();
         }
 }

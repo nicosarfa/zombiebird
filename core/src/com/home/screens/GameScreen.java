@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.home.gameworld.GameRenderer;
 import com.home.gameworld.GameWorld;
+import com.home.zbHelpers.InputHandler;
 
 public class GameScreen implements Screen {
 
@@ -11,10 +12,24 @@ public class GameScreen implements Screen {
 	private GameRenderer renderer;
 
 	public GameScreen() {
-        Gdx.app.log("GameScreen", "Attached");
+		Gdx.app.log("GameScreen", "Attached");
 
-        world = new GameWorld(); // initialize world
+		float screenWidth = Gdx.graphics.getWidth();
+		float screenHeight = Gdx.graphics.getHeight();
+		float gameWidth = 136;
+
+		// Aca divide el alto del juego por la proporcion que hay entre el
+		// tamano de la pantalla y el del juego.
+		// screenWidth = 1080px y gameWidth = 136
+		// La relacion es aproximadamente 8
+		float gameHeight = screenHeight / (screenWidth / gameWidth);
+
+		Float midPointY = gameHeight / 2; // El punto medio es la mitad del ancho del juego
+
+        world = new GameWorld(midPointY.intValue()); // initialize world
         renderer = new GameRenderer(world); // initialize renderer
+
+        Gdx.input.setInputProcessor(new InputHandler(world.getBird()));
 	}
 
 	// This is the game loop!

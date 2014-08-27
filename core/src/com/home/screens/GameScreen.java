@@ -11,6 +11,8 @@ public class GameScreen implements Screen {
 	private GameWorld world;
 	private GameRenderer renderer;
 
+	private float runTime = 0;
+
 	public GameScreen() {
 		Gdx.app.log("GameScreen", "Attached");
 
@@ -22,12 +24,12 @@ public class GameScreen implements Screen {
 		// tamano de la pantalla y el del juego.
 		// screenWidth = 1080px y gameWidth = 136
 		// La relacion es aproximadamente 8
-		float gameHeight = screenHeight / (screenWidth / gameWidth);
+		Float gameHeight = screenHeight / (screenWidth / gameWidth);
 
 		Float midPointY = gameHeight / 2; // El punto medio es la mitad del ancho del juego
 
         world = new GameWorld(midPointY.intValue()); // initialize world
-        renderer = new GameRenderer(world); // initialize renderer
+        renderer = new GameRenderer(world, gameHeight.intValue(), midPointY.intValue()); // initialize renderer
 
         Gdx.input.setInputProcessor(new InputHandler(world.getBird()));
 	}
@@ -35,9 +37,12 @@ public class GameScreen implements Screen {
 	// This is the game loop!
 	@Override
 	public void render(float delta) {
-		// We are passing in delta to our update method so that we can perform frame-rate independent movement. 
-		world.update(delta); // GameWorld updates 
-		renderer.render(); // GameRenderer renders
+		// We are passing in delta to our update method so that we can
+		// perform frame-rate independent movement. 
+		runTime += delta;
+
+		world.update(delta); // GameWorld updates
+		renderer.render(runTime); // GameRenderer renders
 
 		// Covert Frame rate to String, print it
         // Gdx.app.log("GameScreen FPS", (1/delta) + "");

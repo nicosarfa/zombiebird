@@ -1,16 +1,19 @@
 package com.home.gameworld;
 
 import com.home.gameobjects.Bird;
+import com.home.gameobjects.ScrollHandler;
 
 public class GameWorld {
 
 	private Bird bird;
+	private ScrollHandler scroller;
 //	private Rectangle rect = new Rectangle(0, 0, 17, 12);
 //	private Circle circle = new Circle(20, 20, 20);
 
 	public GameWorld(int midPointY) {
 		// Initialize here the bird
 		bird = new Bird(33, midPointY - 5, 17, 12);
+		scroller = new ScrollHandler(midPointY + 66);
 	}
 //	public void update(float delta) {
 //        Gdx.app.log("GameWorld", "update");
@@ -29,9 +32,14 @@ public class GameWorld {
 
 	public void update(float delta) {
 		bird.update(delta);
+		scroller.update(delta);
 	}
 
 	public Bird getBird() {
 		return bird;
+	}
+
+	public ScrollHandler getScroller() {
+		return scroller;
 	}
 }

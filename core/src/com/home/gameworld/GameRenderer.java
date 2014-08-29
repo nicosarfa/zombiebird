@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.home.gameobjects.Bird;
+import com.home.gameobjects.Grass;
+import com.home.gameobjects.Pipe;
+import com.home.gameobjects.ScrollHandler;
 import com.home.zbHelpers.AssetLoader;
 
 public class GameRenderer {
@@ -24,6 +27,10 @@ public class GameRenderer {
 
 	// Game Objects
 	private Bird bird;
+
+	private ScrollHandler scroller;
+	private Grass frontGrass, backGrass;
+	private Pipe pipe1, pipe2, pipe3;
 
 	// Game Assets
 	private TextureRegion bg;
@@ -70,6 +77,13 @@ public class GameRenderer {
 
 	private void initGameObjects() {
 		bird = myWorld.getBird();
+		scroller = myWorld.getScroller();
+
+		frontGrass = scroller.getFrontGrass();
+		backGrass = scroller.getBackGrass();
+		pipe1 = scroller.getPipe1();
+		pipe2 = scroller.getPipe2();
+		pipe3 = scroller.getPipe3();
 	}
 
 	private void initAssets() {
@@ -116,9 +130,17 @@ public class GameRenderer {
 		batcher.disableBlending();
 		batcher.draw(bg, 0, midPointY + 23, 136, 43);
 
-		// The bird needs transparency, so we enable that again.
+		// 1. Draw Grass
+		drawGrass();
+
+		// 2. Draw Pipes
+		drawPipes();
 		batcher.enableBlending();
 
+		// 3. Draw Skulls (requires transparency)
+		drawSkulls();
+		
+		// The bird needs transparency, so we enable that again.
 		// Draw bird at its coordinates. Retrieve the Animation object from
 		// AssetLoader
 		// Pass in the runTime variable to get the current frame.
@@ -133,9 +155,56 @@ public class GameRenderer {
 					bird.getHeight() / 2.0f, bird.getWidth(), bird.getHeight(),
 					1, 1, bird.getRotation());
 		}
-		
+
 		// End SpriteBatch
 		batcher.end();
+	}
+
+	private void drawGrass() {
+		// Draw the grass
+		batcher.draw(grass, frontGrass.getX(), frontGrass.getY(),
+				frontGrass.getWidth(), frontGrass.getHeight());
+		batcher.draw(grass, backGrass.getX(), backGrass.getY(),
+				backGrass.getWidth(), backGrass.getHeight());
+	}
+
+	private void drawSkulls() {
+		// Temporary code! Sorry about the mess :)
+		// We will fix this when we finish the Pipe class.
+
+		batcher.draw(skullUp, pipe1.getX() - 1,
+				pipe1.getY() + pipe1.getHeight() - 14, 24, 14);
+		batcher.draw(skullDown, pipe1.getX() - 1,
+				pipe1.getY() + pipe1.getHeight() + 45, 24, 14);
+
+		batcher.draw(skullUp, pipe2.getX() - 1,
+				pipe2.getY() + pipe2.getHeight() - 14, 24, 14);
+		batcher.draw(skullDown, pipe2.getX() - 1,
+				pipe2.getY() + pipe2.getHeight() + 45, 24, 14);
+
+		batcher.draw(skullUp, pipe3.getX() - 1,
+				pipe3.getY() + pipe3.getHeight() - 14, 24, 14);
+		batcher.draw(skullDown, pipe3.getX() - 1,
+				pipe3.getY() + pipe3.getHeight() + 45, 24, 14);
+	}
+
+	private void drawPipes() {
+		// Temporary code! Sorry about the mess :)
+		// We will fix this when we finish the Pipe class.
+		batcher.draw(bar, pipe1.getX(), pipe1.getY(), pipe1.getWidth(),
+				pipe1.getHeight());
+		batcher.draw(bar, pipe1.getX(), pipe1.getY() + pipe1.getHeight() + 45,
+				pipe1.getWidth(), midPointY + 66 - (pipe1.getHeight() + 45));
+
+		batcher.draw(bar, pipe2.getX(), pipe2.getY(), pipe2.getWidth(),
+				pipe2.getHeight());
+		batcher.draw(bar, pipe2.getX(), pipe2.getY() + pipe2.getHeight() + 45,
+				pipe2.getWidth(), midPointY + 66 - (pipe2.getHeight() + 45));
+
+		batcher.draw(bar, pipe3.getX(), pipe3.getY(), pipe3.getWidth(),
+				pipe3.getHeight());
+		batcher.draw(bar, pipe3.getX(), pipe3.getY() + pipe3.getHeight() + 45,
+				pipe3.getWidth(), midPointY + 66 - (pipe3.getHeight() + 45));
 	}
 //	public void render() {
 //        Gdx.app.log("GameRenderer", "render");

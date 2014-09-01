@@ -1,6 +1,7 @@
 package com.home.zbHelpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,6 +12,8 @@ public class AssetLoader {
 	// Unico archivo que contiene todas las imagenes
 	// Es decir la textura contiene el pasto, el pajaro, el mundo, etc
 	public static Texture texture;
+
+	public static Sound dead;
 
 	// Es una seleccion de la textura, el pasto por ejemplo
 	public static TextureRegion bg;
@@ -66,6 +69,7 @@ public class AssetLoader {
 		bar = new TextureRegion(texture, 136, 16, 22, 3);
 		bar.flip(false, true);
 
+		dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
 }
 
 	public static void dispose() {

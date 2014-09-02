@@ -1,5 +1,8 @@
 package com.home.gameobjects;
 
+import com.home.gameworld.GameWorld;
+import com.home.zbHelpers.AssetLoader;
+
 public class ScrollHandler {
 	// ScrollHandler will create all five objects that we need.
 	private Grass frontGrass;
@@ -17,15 +20,19 @@ public class ScrollHandler {
 	public static final int SCROLL_SPEED = -59;
 	public static final int PIPE_GAP = 49;
 
+	private GameWorld gameWorld;
+
 	// Constructor receives a float that tells us where we need to create our
 	// Grass and Pipe objects.
-	public ScrollHandler(float yPos) {
+	public ScrollHandler(GameWorld gameWorld, float yPos) {
 		frontGrass = new Grass(0, yPos, 143, 11, SCROLL_SPEED);
 		backGrass = new Grass(frontGrass.getTailX(), yPos, 143, 11, SCROLL_SPEED);
 
 		pipe1 = new Pipe(210, 0, 22, 60, SCROLL_SPEED, yPos);
 		pipe2 = new Pipe(pipe1.getTailX() + PIPE_GAP, 0, 22, 70, SCROLL_SPEED, yPos);
 		pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 0, 22, 60, SCROLL_SPEED, yPos);
+
+		this.gameWorld = gameWorld;
 	}
 
 	public void update(float delta) {
@@ -55,6 +62,26 @@ public class ScrollHandler {
 	}
 
 	public boolean collides(Bird bird) {
+		if (! pipe1.isScored()
+				&& pipe1.getX() + (pipe1.getWidth() / 2) <
+					bird.getX() + bird.getWidth()) {
+            addScore(1);
+            pipe1.setScored(true);
+            AssetLoader.coin.play();
+        } else if (! pipe2.isScored()
+                && pipe2.getX() + (pipe2.getWidth() / 2) < bird.getX()
+                        + bird.getWidth()) {
+            addScore(1);
+            pipe2.setScored(true);
+            AssetLoader.coin.play();
+        } else if (! pipe3.isScored()
+                && pipe3.getX() + (pipe3.getWidth() / 2) < bird.getX()
+                        + bird.getWidth()) {
+            addScore(1);
+            pipe3.setScored(true);
+            AssetLoader.coin.play();
+        }
+		
 		return (pipe1.collides(bird) || pipe2.collides(bird) || pipe3.collides(bird));
 	}
 
@@ -64,6 +91,10 @@ public class ScrollHandler {
 		pipe1.stop();
 		pipe2.stop();
 		pipe3.stop();
+	}
+
+	private void addScore(int increment) {
+		gameWorld.addScore(increment);
 	}
 
 	// The getters for our five instance variables

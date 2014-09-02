@@ -21,6 +21,8 @@ public class Pipe extends Scrollable {
 
 	private float groundY;
 
+	private boolean isScored = false;
+
 	// When Pipe's constructor is invoked, invoke the super (Scrollable)
 	// constructor
 	public Pipe(float x, float y, int width, int height,
@@ -66,6 +68,8 @@ public class Pipe extends Scrollable {
 
 		// Change the height to a random number
 		height = r.nextInt(90) + 15;
+
+		isScored = false;
 	}
 
 	public boolean collides(Bird bird) {
@@ -79,6 +83,14 @@ public class Pipe extends Scrollable {
         return false;
     }
 
+	public void setScored(boolean isScored) {
+		this.isScored = isScored;
+	}
+
+	public boolean isScored() {
+		return isScored;
+	}
+	
 	public Rectangle getSkullUp() {
 		return skullUp;
 	}

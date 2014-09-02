@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
@@ -14,6 +15,8 @@ public class AssetLoader {
 	public static Texture texture;
 
 	public static Sound dead;
+	public static Sound flap;
+	public static Sound coin;
 
 	// Es una seleccion de la textura, el pasto por ejemplo
 	public static TextureRegion bg;
@@ -29,6 +32,10 @@ public class AssetLoader {
 	public static TextureRegion skullUp;
 	public static TextureRegion skullDown;
 	public static TextureRegion bar;
+
+	// Usados para dibujar las letras
+	public static BitmapFont font;
+	public static BitmapFont shadow;
 
 	public static void load() {
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
@@ -70,10 +77,26 @@ public class AssetLoader {
 		bar.flip(false, true);
 
 		dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
+		flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
+		coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
+
+		// These will load the files and change them to an appropriate size for us to use:
+		font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+		font.setScale(.25f, -.25f);
+		shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+		shadow.setScale(.25f, -.25f);
 }
 
 	public static void dispose() {
 		// We must dispose of the texture when we are finished.
 		texture.dispose();
+
+		// Dispose sounds
+		dead.dispose();
+		flap.dispose();
+		coin.dispose();
+
+		font.dispose();
+		shadow.dispose();
 	}
 }

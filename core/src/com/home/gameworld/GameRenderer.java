@@ -157,6 +157,20 @@ public class GameRenderer {
 					1, 1, bird.getRotation());
 		}
 
+		// For write text in screen
+		// AssetLoader.shadow.draw(batcher, "hello world", x, y);
+
+		// Convert integer into String
+		String score = Integer.toString(myWorld.getScore());
+
+		// Draw shadow first
+		AssetLoader.shadow.draw(batcher, score,
+				(136 / 2) - (3 * score.length()), 12);
+
+		// Draw text
+		AssetLoader.font.draw(batcher, score,
+				(136 / 2) - (3 * score.length() - 1), 11);
+
 		// End SpriteBatch
 		batcher.end();
 		

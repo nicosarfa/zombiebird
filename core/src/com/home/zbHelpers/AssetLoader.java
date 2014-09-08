@@ -1,6 +1,7 @@
 package com.home.zbHelpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -36,6 +37,10 @@ public class AssetLoader {
 	// Usados para dibujar las letras
 	public static BitmapFont font;
 	public static BitmapFont shadow;
+
+	public static Preferences prefs;
+
+	private static String HIGH_SCORE_PREFERENCE = "highScore";
 
 	public static void load() {
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
@@ -85,7 +90,26 @@ public class AssetLoader {
 		font.setScale(.25f, -.25f);
 		shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
 		shadow.setScale(.25f, -.25f);
-}
+
+		// Create (or retrieve existing) preferences file
+		prefs = Gdx.app.getPreferences("ZombieBird");
+
+		// Provide default high score of 0
+		if (! prefs.contains(HIGH_SCORE_PREFERENCE)) {
+			prefs.putInteger(HIGH_SCORE_PREFERENCE, 0);
+		}
+	}
+
+	// Receives an integer and maps it to the String highScore in prefs
+	public static void setHighScore(int val) {
+		prefs.putInteger("highScore", val);
+		prefs.flush();
+	}
+
+	// Retrieves the current high score
+	public static int getHighScore() {
+		return prefs.getInteger(HIGH_SCORE_PREFERENCE);
+	}
 
 	public static void dispose() {
 		// We must dispose of the texture when we are finished.

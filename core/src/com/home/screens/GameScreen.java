@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
         world = new GameWorld(midPointY.intValue()); // initialize world
         renderer = new GameRenderer(world, gameHeight.intValue(), midPointY.intValue()); // initialize renderer
 
-        Gdx.input.setInputProcessor(new InputHandler(world.getBird()));
+        Gdx.input.setInputProcessor(new InputHandler(world));
 	}
 
 	// This is the game loop!

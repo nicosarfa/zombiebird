@@ -14,11 +14,18 @@ public class AssetLoader {
 	// Unico archivo que contiene todas las imagenes
 	// Es decir la textura contiene el pasto, el pajaro, el mundo, etc
 	public static Texture texture;
+	public static Texture logoTexture;
 
 	public static Sound dead;
 	public static Sound flap;
 	public static Sound coin;
 
+	public static TextureRegion logo;
+	public static TextureRegion zbLogo;
+	
+	public static TextureRegion playButtonUp;
+	public static TextureRegion playButtonDown;
+	
 	// Es una seleccion de la textura, el pasto por ejemplo
 	public static TextureRegion bg;
 	public static TextureRegion grass;
@@ -45,6 +52,19 @@ public class AssetLoader {
 	public static void load() {
 		texture = new Texture(Gdx.files.internal("data/texture.png"));
 		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+
+		logoTexture = new Texture(Gdx.files.internal("data/logo.png"));
+		logoTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+
+		logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
+
+		playButtonUp = new TextureRegion(texture, 0, 83, 29, 16);
+		playButtonDown = new TextureRegion(texture, 29, 83, 29, 16);
+		playButtonUp.flip(false, true);
+		playButtonDown.flip(false, true);
+
+		zbLogo = new TextureRegion(texture, 0, 55, 135, 24);
+		zbLogo.flip(false, true);
 
 		bg = new TextureRegion(texture, 0, 0, 136, 43);
 		bg.flip(false, true);

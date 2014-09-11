@@ -8,3 +8,4 @@ http://www.kilobolt.com/day-9-finishing-gameplay-and-basic-ui.html
 http://www.kilobolt.com/day-10-gamestates-and-high-score.html
 http://www.kilobolt.com/day-11-supporting-iosandroid--splashscreen-menus-and-tweening.html
 http://www.kilobolt.com/day-11-supporting-iosandroid--splashscreen-menus-and-tweening.html#408075474175243710
+http://www.kilobolt.com/day-11-supporting-iosandroid--splashscreen-menus-and-tweening.html#346544927396235900
